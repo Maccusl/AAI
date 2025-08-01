@@ -74,15 +74,15 @@ def llama_new_forward(
             attn_weights, torch.tensor(torch.finfo(attn_weights.dtype).min)
         )
 
-    ### PAI's modification
-    if hasattr(self, "use_attn"):
-        use_attn = self.use_attn
+    ### AAI's modification
+    if hasattr(self, "use_aai"):
+        use_aai = self.use_aai
         img_start_idx = self.img_start_idx
         img_end_idx = self.img_end_idx
     else:
-        use_attn = False
+        use_aai = False
 
-    if use_attn:
+    if use_aai:
         cur_pos = position_ids[0, -1].item()
         if self.start_pos is None:
             self.start_pos = cur_pos
@@ -94,7 +94,7 @@ def llama_new_forward(
                 ori_attn.abs() * self.alpha * ref_mask.abs()
                 + self.beta * attn_weights[:, :, -1, img_start_idx:img_end_idx]
             )
-    ### PAI's modification
+    ### AAI's modification
 
     attn_weights = nn.functional.softmax(attn_weights, dim=-1, dtype=torch.float32).to(
         query_states.dtype
@@ -119,10 +119,10 @@ def llama_new_forward(
     return attn_output, attn_weights, past_key_value
 
 
-def llama_modify(model, start_layer, end_layer, use_attn, alpha,beta,
+def llama_modify(model, start_layer, end_layer, use_aai, alpha,beta,
                  img_start_idx, img_end_idx,vis_ref):
     for i in range(start_layer, end_layer):
-        model.model.layers[i].self_attn.use_attn = use_attn
+        model.model.layers[i].self_attn.use_aai = use_aai
         model.model.layers[i].self_attn.alpha = alpha
         model.model.layers[i].self_attn.beta = beta
         model.model.layers[i].self_attn.img_start_idx = img_start_idx

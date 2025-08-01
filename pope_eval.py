@@ -46,12 +46,9 @@ parser.add_argument("--batch-size", type=int, default=1)
 
 parser.add_argument("--beam", type=int, default=1)
 parser.add_argument("--sample", action="store_true")
-parser.add_argument("--use-attn", action="store_true")
+parser.add_argument("--use-aai", action="store_true")
 parser.add_argument("--alpha", type=float, default=0.3)
 parser.add_argument("--beta", type=float, default=1.0)
-parser.add_argument("--use-mask", action="store_true")
-parser.add_argument("--use-cfg", action="store_true")
-parser.add_argument("--gamma", type=float, default=2)
 parser.add_argument("--start-layer", type=int, default=2)
 parser.add_argument("--end-layer", type=int, default=32)
 parser.add_argument("--max-tokens", type=int, default=512)
@@ -87,7 +84,7 @@ file_parts = [
     f"pope_eval_{args.pope_type}_layers_{args.start_layer}-{args.end_layer}_tokens_{args.max_tokens}_eos",
     "_sample" if args.sample else "",
     f"_beams_{args.beam}" if args.beam != 1 else "",
-    f"_attn_{args.alpha}" if args.use_attn else "",
+    f"_attn_{args.alpha}" if args.use_aai else "",
     f"_cfg_{args.gamma}" if args.use_cfg else "",
 ]
 
@@ -116,7 +113,7 @@ for batch_id, data in tqdm(enumerate(pope_loader), total=len(pope_loader)):
             model= model_loader.llm_model,
             start_layer = args.start_layer,
             end_layer = args.end_layer,
-            use_attn=args.use_attn,
+            use_aai=args.use_aai,
             alpha = args.alpha,
             beta = args.beta,
             img_start_idx = model_loader.img_start_idx,

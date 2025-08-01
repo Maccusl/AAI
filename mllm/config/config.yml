@@ -1,5 +1,5 @@
 ModelArgs:
-  model_name_or_path: "/home/zjulab/lxh/baseline/PAI/shikra-7b"
+  model_name_or_path: "/path/to/PAI/shikra-7b"
   type: "shikra"
   cache_dir: null
   freeze_backbone: false

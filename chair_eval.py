@@ -44,7 +44,7 @@ parser.add_argument("--batch-size", type=int, default=1)
 
 parser.add_argument("--beam", type=int, default=1)
 parser.add_argument("--sample", action="store_true")
-parser.add_argument("--use-attn", action="store_true")
+parser.add_argument("--use-aai", action="store_true")
 parser.add_argument("--alpha", type=float, default=0.3)
 parser.add_argument("--beta", type=float, default=1.0)
 parser.add_argument("--seed", type=float, default=0)
@@ -73,7 +73,7 @@ file_parts = [
     f"chair_eval_layers_{args.start_layer}-{args.end_layer}_tokens_{args.max_tokens}_bs_{args.batch_size}",
     "_sample" if args.sample else "",
     f"_beams_{args.beam}" if args.beam != 1 else "",
-    f"_attn_{args.alpha}" if args.use_attn else "",
+    f"_attn_{args.alpha}" if args.use_aai else "",
 ]
 
 file_name = "".join(file_parts)
@@ -97,7 +97,7 @@ for batch_id, data in tqdm(enumerate(coco_loader), total=len(coco_loader)):
         model= model_loader.llm_model,
         start_layer = args.start_layer,
         end_layer = args.end_layer,
-        use_attn=args.use_attn,
+        use_aai=args.use_aai,
         alpha = args.alpha,
         beta = args.beta,
         img_start_idx = model_loader.img_start_idx,

@@ -5,7 +5,7 @@ model:
   end_sym: "###"
   low_resource: False
   prompt_template: "###Human: {} ###Assistant: "
-  ckpt: "/home/zjulab/lxh/baseline/PAI/minigpt4/prerained_minigpt4_7b.pth"
+  ckpt: "/path/to/minigpt4/prerained_minigpt4_7b.pth"
 
 datasets:
   cc_sbu_align:

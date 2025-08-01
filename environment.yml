@@ -1,4 +1,4 @@
-name: pai
+name: aai
 channels:
   - conda-forge
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
